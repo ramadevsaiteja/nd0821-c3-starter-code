@@ -1,0 +1,4 @@
+[core]
+    remote = mlopss3remote
+['remote "mlopss3remote"']
+    url = s3://srmlopsawsbucket
