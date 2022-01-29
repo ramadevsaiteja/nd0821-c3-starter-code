@@ -1,4 +1,7 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.ensemble import RandomForestClassifier
+import yaml
+import os
 
 
 # Optional: implement hyperparameter tuning.
@@ -17,8 +20,12 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "hyper_parameters.yaml"), "r") as stream:
+        rf_config = yaml.safe_load(stream)
+    clf = RandomForestClassifier(**rf_config)
+    clf.fit(X_train, y_train)
 
-    pass
+    return clf
 
 
 def compute_model_metrics(y, preds):
@@ -57,4 +64,4 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+    return model.predict(X)
