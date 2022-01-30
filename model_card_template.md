@@ -6,7 +6,7 @@ For additional information see the Model Card paper: https://arxiv.org/pdf/1810.
 - Train random forest model on Census Bureau data
 
 ## Intended Use
-- Predict the salary of a person based on a some features from Census Bureau data
+- Predict the salary of a person based on features from Census Bureau data
 
 ## Training Data
 
