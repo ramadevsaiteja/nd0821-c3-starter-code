@@ -33,6 +33,6 @@ jobs:
         pip install -r starter/requirements.txt
         pip install flake8
     - name: Run Flake8
-      run: flake8 --ignore=E
+      run: flake8 --ignore=W
     - name: Run pytest
       run: pytest
