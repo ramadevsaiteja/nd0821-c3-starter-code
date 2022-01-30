@@ -32,11 +32,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install flake8
-        pip install pylint
     - name: Run Flake8
       run: flake8 --ignore=E,W
     - name: Run pytest
       run: pytest
-    - name: Analysing the code with pylint
-      run: |
-          pylint $(git ls-files '*.py')
