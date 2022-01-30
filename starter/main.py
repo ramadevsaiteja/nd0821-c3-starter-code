@@ -6,6 +6,7 @@ import joblib
 import pandas as pd
 from train.ml.data import process_data
 from train.ml.model import inference
+import os
 
 app = FastAPI()
 
@@ -45,16 +46,17 @@ async def predict(data: Data):
         "native-country",
     ]
 
-    model, encoder, lb, metrics = joblib.load('./model/model.pkl')
-    dict = data.__dict__
-    keys = list(dict.keys())
+    model, encoder, lb, metrics = joblib.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                           "model/model.pkl"))
+    data_dict = data.__dict__
+    keys = list(data_dict.keys())
     for feature in keys:
         modified_feature = feature.replace('_', '-')
-        dict[modified_feature] = [dict[feature]]
+        data_dict[modified_feature] = [data_dict[feature]]
         if modified_feature != feature:
-            del dict[feature]
+            del data_dict[feature]
 
-    df = pd.DataFrame(dict)
+    df = pd.DataFrame(data_dict)
     X, y, encoder, lb = process_data(
         df,
         categorical_features=cat_features,
