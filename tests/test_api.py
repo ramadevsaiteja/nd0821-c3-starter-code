@@ -19,7 +19,7 @@ def test_get_malformed():
     assert r.status_code != 200
 
 
-def test_post():
+def test_post_less_than_50k():
     data = {
         "age": 28,
         "workclass": "Private",
@@ -40,6 +40,29 @@ def test_post():
     assert r.status_code == 200
     assert "output" in r.json()
     assert r.json()["output"] == "<=50K"
+
+
+def test_post_greater_than_50k():
+    data = {
+        "age": 31,
+        "workclass": "Private",
+        "fnlwgt": 45781,
+        "education": "Masters",
+        "education_num": 14,
+        "marital_status": "Never-married",
+        "occupation": "Prof-specialty",
+        "relationship": "Not-in-family",
+        "race": "White",
+        "sex": "Female",
+        "capital_gain": 14084,
+        "capital_loss": 0,
+        "hours_per_week": 50,
+        "native_country": "United-States"
+    }
+    r = client.post('/inference', json=data)
+    assert r.status_code == 200
+    assert "output" in r.json()
+    assert r.json()["output"] == ">50K"
 
 
 def test_post_malformed():
